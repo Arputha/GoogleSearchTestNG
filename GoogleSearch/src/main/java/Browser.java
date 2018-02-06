@@ -12,7 +12,7 @@ public class Browser  {
 		driver= new ChromeDriver();
 	}
 	public void initFirefox() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Selenium\\Downloads\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Selenium\\Downloads\\geckodriver-v0.19.1-win64\\geckodriver.exe");
 		driver= new FirefoxDriver();
 	}
 	Browser(String brws, String site) {

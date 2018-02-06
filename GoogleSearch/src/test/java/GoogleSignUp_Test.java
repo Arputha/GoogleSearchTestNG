@@ -14,6 +14,15 @@ public class GoogleSignUp_Test {
   GoogleSignUp gsu;
   WebDriver driver;
   String rphone;
+
+  @BeforeClass
+  public void beforeClass() {
+	  //Verify the driver paths in Browser.java before execution
+	  gsu = new GoogleSignUp("Chrome", "https://accounts.google.com/signup");
+	  driver=gsu.getWD();
+
+  }
+  
   @Test 
   public void verifySignUpPage() {
 	  rphone="4254993519";
@@ -36,10 +45,15 @@ public class GoogleSignUp_Test {
 		WebElement element = null;
 		while(loop) {
 			element=driver.findElement(By.id("tos-scroll-button"));
-			if(element.isDisplayed()) {
+			if(element.isDisplayed() || element.isEnabled()) {
 //				System.out.print("Clicking on scroll button. \t");
-				element.click();
-				driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+				try {
+					element.click();
+				}
+				catch (Exception e) {
+					System.out.println("scroll button unavailable");
+				}
+				driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
 			}
 			
 			element=driver.findElement(By.id("iagreebutton"));
@@ -102,15 +116,10 @@ public class GoogleSignUp_Test {
 		}
   }
   
-  @BeforeClass
-  public void beforeClass() {
-	  gsu = new GoogleSignUp("Chrome", "https://accounts.google.com/signup");
-	  driver=gsu.getWD();
-
-  }
 
   @AfterClass
   public void afterClass() {
+	  driver.quit();
   }
 
 }

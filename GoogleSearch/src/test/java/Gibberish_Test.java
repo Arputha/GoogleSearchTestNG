@@ -36,6 +36,7 @@ public class Gibberish_Test {
 
   @AfterClass
   public void afterClass() {
+	  driver.quit();
   }
 
 }
