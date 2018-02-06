@@ -6,7 +6,12 @@
       <class name="GoogleSignUp_Test">
         <methods>
           <include name="verifyTOS"/>
+          <include name="verifyConfirmationPhone"/>
+          <include name="verifyCancelTOS"/>
           <include name="afterClass"/>
+          <include name="verifySignUpPage"/>
+          <include name="verifyAgreeTOS"/>
+          <include name="verifySignUpSubmit"/>
           <include name="beforeClass"/>
         </methods>
       </class> <!-- GoogleSignUp_Test -->

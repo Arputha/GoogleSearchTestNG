@@ -13,11 +13,13 @@ import org.testng.annotations.AfterClass;
 public class GoogleSignUp_Test {
   GoogleSignUp gsu;
   WebDriver driver;
-  @Test (priority=1)
+  String rphone;
+  @Test 
   public void verifySignUpPage() {
+	  rphone="4254993519";
 	  gsu.fillSignUpPage ("ken", "adams", "kenadams.qa101.test1",  
 				"p@ssword123", 12,01,1992, "male",
-				"mano.snow@gmail.com", "4254993519");
+				"mano.snow@gmail.com", rphone);
 	  WebElement element=driver.findElement(By.id("tos-scroll-button"));
 	  if(element.isDisplayed()) {
 		  assertTrue(true);
@@ -27,7 +29,7 @@ public class GoogleSignUp_Test {
 	  }
   }
   
-  @Test (priority=2)
+  @Test (dependsOnMethods = {"verifySignUpPage"})
   public void verifyTOS() {
 		boolean loop=true;
 		int i=0;
@@ -37,8 +39,9 @@ public class GoogleSignUp_Test {
 			if(element.isDisplayed()) {
 //				System.out.print("Clicking on scroll button. \t");
 				element.click();
-				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 			}
+			
 			element=driver.findElement(By.id("iagreebutton"));
 			
 			if (element.isDisplayed()) {
@@ -52,14 +55,53 @@ public class GoogleSignUp_Test {
 			i++;
 		}
 		element=driver.findElement(By.id("cancelbutton"));
-		if(loop && element.isDisplayed()) {
+		if(!loop && element.isDisplayed()) {
 			assertTrue(true);
 		}
 		
   }
   
-  @Test (priority =4)
-
+  @Test (dependsOnMethods = {"verifyTOS"})
+  public void verifyCancelTOS() {
+	  WebElement element=null;
+	  element=driver.findElement(By.id("cancelbutton"));
+	  element.click();
+	  if(!element.isDisplayed()) {
+		  assertTrue(true);
+	  }
+  }
+  @Test (dependsOnMethods = {"verifyCancelTOS"})
+  public void verifySignUpSubmit() {
+	WebElement element=driver.findElement(By.name("submitbutton"));
+	element.submit();
+	element=driver.findElement(By.id("cancelbutton"));
+	if(element.isDisplayed()) {
+		  assertTrue(true);
+	  }
+  }
+  
+  @Test (dependsOnMethods = {"verifySignUpSubmit"})
+  public void verifyAgreeTOS() {
+	  WebElement element=null;
+	  element=driver.findElement(By.id("iagreebutton"));
+	  element.click();
+	  element=driver.findElement(By.id("signupidvinput"));
+	  if(element.isDisplayed()) {
+		  assertTrue(true);
+	  }
+  }
+  
+  @Test (dependsOnMethods = {"verifyAgreeTOS"})
+  public void verifyConfirmationPhone() {
+	  WebElement element = driver.findElement(By.id("signupidvinput"));
+		String str;
+		
+		str=element.getAttribute("value");
+		if (rphone.equals(str.replaceAll("[^\\d+xX]", ""))) {
+			assertTrue(true);
+		}
+  }
+  
   @BeforeClass
   public void beforeClass() {
 	  gsu = new GoogleSignUp("Chrome", "https://accounts.google.com/signup");

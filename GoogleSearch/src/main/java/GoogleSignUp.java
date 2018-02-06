@@ -89,7 +89,7 @@ public class GoogleSignUp {
 			if(element.isDisplayed()) {
 //				System.out.print("Clicking on scroll button. \t");
 				element.click();
-				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 			}
 			element=driver.findElement(By.id("iagreebutton"));
 			
