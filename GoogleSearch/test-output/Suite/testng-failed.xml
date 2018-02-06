@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="-1" guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <test name="Test(failed)">
+    <classes>
+      <class name="GoogleSignUp_Test">
+        <methods>
+          <include name="verifyTOS"/>
+          <include name="verifyConfirmationPhone"/>
+          <include name="verifyCancelTOS"/>
+          <include name="afterClass"/>
+          <include name="verifySignUpPage"/>
+          <include name="verifyAgreeTOS"/>
+          <include name="verifySignUpSubmit"/>
+          <include name="beforeClass"/>
+        </methods>
+      </class> <!-- GoogleSignUp_Test -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->
